@@ -102,7 +102,7 @@ class Paraview(CMakePackage, CudaPackage):
     depends_on('libxt', when='~osmesa platform=linux')
     conflicts('+qt', when='+osmesa')
 
-    depends_on('adios2@adis', when='+adis')
+    depends_on('adios2@adis+python', when='+adis')
 
     depends_on('bzip2')
     depends_on('double-conversion')
