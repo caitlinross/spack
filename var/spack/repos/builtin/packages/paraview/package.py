@@ -44,7 +44,7 @@ class Paraview(CMakePackage, CudaPackage):
     variant('osmesa', default=False, description='Enable OSMesa support')
     variant('qt', default=False, description='Enable Qt (gui) support')
     variant('opengl2', default=True, description='Enable OpenGL2 backend')
-    variant('adis', default=False, description='Enable ADIS reader')
+    variant('fides', default=False, description='Enable Fides reader')
     variant('examples', default=False, description="Build examples")
     variant('hdf5', default=False, description="Use external HDF5")
     variant('shared', default=True,
@@ -102,7 +102,7 @@ class Paraview(CMakePackage, CudaPackage):
     depends_on('libxt', when='~osmesa platform=linux')
     conflicts('+qt', when='+osmesa')
 
-    depends_on('adios2@adis+python', when='+adis')
+    depends_on('adios2@master+python', when='+fides')
 
     depends_on('bzip2')
     depends_on('double-conversion')
@@ -315,9 +315,9 @@ class Paraview(CMakePackage, CudaPackage):
         cmake_args.append(
             '-DPARAVIEW_BUILD_SHARED_LIBS:BOOL=%s' % variant_bool('+shared'))
 
-        if '+adis' in spec:
+        if '+fides' in spec:
             cmake_args.extend([
-                '-DPARAVIEW_ENABLE_ADIS:BOOL=ON',
+                '-DPARAVIEW_ENABLE_FIDES:BOOL=ON',
                 '-DADIOS2_DIR=%s' % spec['adios2'].prefix
             ])
 
